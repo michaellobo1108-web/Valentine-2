@@ -1,0 +1,80 @@
+‎· html
+‎<head>
+‎    header h1 {
+‎      padding: 20px;
+‎      background: #ffe5ec;
+‎      font-size: 0.9rem;
+‎    }
+‎
+‎    /* Editable image */
+‎    img {
+‎      max-width: 100%;
+‎      border-radius: 15px;
+‎      margin-top: 15px;
+‎    }
+‎  </style>
+‎</head>
+‎<body>
+‎
+‎  <!-- ====== HEADER (EDIT TEXT HERE) ====== -->
+‎  <header>
+‎    <h1>Happy Valentine's Day 💘</h1>
+‎    <p>To the one who makes my heart smile every day</p>
+‎  </header>
+‎
+‎  <!-- ====== LOVE MESSAGE SECTION ====== -->
+‎  <section>
+‎    <div class="card">
+‎      <h2>My Love Message 💌</h2>
+‎      <p>
+‎        You can edit this message anytime. Write your own love letter here.
+‎        Tell your partner how special they are and why you love them.
+‎      </p>
+‎      <div class="heart">❤️</div>
+‎    </div>
+‎
+‎    <!-- ====== IMAGE SECTION (OPTIONAL) ====== -->
+‎    <div class="card">
+‎      <h2>Our Favorite Memory 📸</h2>
+‎      <p>Replace the image below with your own photo.</p>
+‎      <!-- Replace image URL -->
+‎      <img src="https://via.placeholder.com/600x350?text=Your+Photo+Here" alt="Valentine Image">
+‎    </div>
+‎
+‎    <!-- ====== BUTTON SECTION ====== -->
+‎    <div class="card">
+‎      <h2>One Question 💕</h2>
+‎      <p id="questionText">Will you be my Valentine? 💖</p>
+‎      <button onclick="yesAnswer()">Yes 💘</button>
+‎      <button onclick="noAnswer()" style="margin-left:10px; background:#999;">No 💔</button>
+‎      <p id="loveText" style="margin-top:20px; font-weight:bold;"></p>
+‎    </div>
+‎  </section>
+‎
+‎  <!-- ====== FOOTER ====== -->
+‎  <footer>
+‎    <p>Made with ❤️ for Valentine's Day</p>
+‎  </footer>
+‎
+‎  <!-- ====== EDITABLE SCRIPT ====== -->
+‎  <script>
+‎    function yesAnswer() {
+‎      document.getElementById('questionText').innerText = "Yay! 💖 I knew you would say YES!";
+‎      document.getElementById('loveText').innerText = "Happy Valentine's Day! 💕";
+‎    }
+‎
+‎    function noAnswer() {
+‎      const questions = [
+‎        "Are you sure? 🥺",
+‎        "Really really sure? 💔",
+‎        "What if I ask nicely? 💕",
+‎        "Please be my Valentine 🥹",
+‎        "Last chance… Will you be my Valentine? 💖"
+‎      ];
+‎      const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+‎      document.getElementById('questionText').innerText = randomQuestion;
+‎    }
+‎  </script>
+‎
+‎</body>
+‎</html>
