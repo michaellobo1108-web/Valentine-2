@@ -23,8 +23,8 @@ section {
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 25px;
   opacity: 0;
   pointer-events: none;
@@ -53,7 +53,6 @@ button {
   font-size: 16px;
   cursor: pointer;
   margin-top: 30px;
-  transition: transform 0.25s ease;
 }
 
 button:hover {
@@ -84,7 +83,7 @@ button:hover {
   50% { transform: translateY(-18px); }
 }
 
-/* TYPING EFFECT */
+/* TYPING */
 .typing {
   border-right: 2px solid #b3005e;
   white-space: nowrap;
@@ -107,37 +106,28 @@ button:hover {
   box-shadow: 0 12px 22px rgba(0,0,0,0.15);
 }
 
-/* VALENTINE BUTTONS */
+/* BUTTON LAYOUT */
 .btn-box {
   position: relative;
   width: 320px;
   height: 120px;
 }
 
-#yesBtn {
-  position: absolute;
-  left: 0;
-}
+#yesBtn { position: absolute; left: 0; }
+#noBtn  { position: absolute; right: 0; background: #ff9fcf; }
 
-#noBtn {
-  position: absolute;
-  right: 0;
-  background: #ff9fcf;
-}
-
-/* FIREWORK PARTICLES */
-.spark {
+/* CANVAS FIREWORKS */
+#fireworks {
   position: fixed;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff, #ff69b4);
+  inset: 0;
   pointer-events: none;
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="fireworks"></canvas>
 
 <!-- SLIDE 1 -->
 <section class="active" data-text="I have something special for you...">
@@ -173,10 +163,10 @@ button:hover {
 </section>
 
 <script>
+/* PRESENTATION */
 const sections = document.querySelectorAll("section");
 let page = 0;
 
-/* PRESENTATION TRANSITION + TYPING */
 function next() {
   sections[page].classList.remove("active");
   page++;
@@ -184,7 +174,7 @@ function next() {
   startTyping(sections[page]);
 }
 
-/* TYPING FUNCTION */
+/* TYPING */
 function startTyping(section) {
   const text = section.dataset.text;
   const el = section.querySelector(".typing");
@@ -198,8 +188,6 @@ function startTyping(section) {
     if (i >= text.length) clearInterval(interval);
   }, 60);
 }
-
-/* Start typing on first load */
 startTyping(sections[0]);
 
 /* NO BUTTON */
@@ -210,55 +198,77 @@ const noTexts = [
   "Please reconsider",
   "Say yes already"
 ];
-let noCount = 0;
+let noIndex = 0;
 
 function no() {
   const btn = document.getElementById("noBtn");
-  btn.textContent = noTexts[noCount % noTexts.length];
-  noCount++;
+  btn.textContent = noTexts[noIndex % noTexts.length];
+  noIndex++;
   btn.style.right = Math.random() * 140 + "px";
   btn.style.top = Math.random() * 60 + "px";
 }
 
-/* REAL FIREWORKS */
+/* 🔥 REAL FIREWORKS (CANVAS) */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+resize();
+window.addEventListener("resize", resize);
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+let particles = [];
+
+function createFirework() {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height * 0.5;
+  const colors = ["#ff5fa2", "#ff8fcf", "#ffc1dd", "#ffffff"];
+
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x,
+      y,
+      vx: Math.cos(i) * Math.random() * 4,
+      vy: Math.sin(i) * Math.random() * 4,
+      life: 100,
+      color: colors[Math.floor(Math.random() * colors.length)]
+    });
+  }
+}
+
+function updateFireworks() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p, i) => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (p.life <= 0) particles.splice(i, 1);
+  });
+
+  requestAnimationFrame(updateFireworks);
+}
+updateFireworks();
+
+/* YES ACTION */
 function yes() {
   document.getElementById("question").textContent =
     "YAY! 💖 Happy Valentine’s Day!";
 
   let bursts = 0;
-  const fireworkLoop = setInterval(() => {
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight * 0.5;
-
-    for (let i = 0; i < 24; i++) {
-      const spark = document.createElement("div");
-      spark.className = "spark";
-      spark.style.left = x + "px";
-      spark.style.top = y + "px";
-
-      const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * 120 + 40;
-
-      document.body.appendChild(spark);
-
-      spark.animate([
-        { transform: "translate(0,0)", opacity: 1 },
-        {
-          transform: `translate(${Math.cos(angle) * distance}px,
-                      ${Math.sin(angle) * distance}px)`,
-          opacity: 0
-        }
-      ], {
-        duration: 1200,
-        easing: "ease-out"
-      });
-
-      setTimeout(() => spark.remove(), 1200);
-    }
-
+  const show = setInterval(() => {
+    createFirework();
     bursts++;
-    if (bursts > 14) clearInterval(fireworkLoop);
-  }, 350);
+    if (bursts > 15) clearInterval(show);
+  }, 400);
 }
 </script>
 
