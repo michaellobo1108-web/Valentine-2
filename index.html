@@ -1,235 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Valentine 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Will You Be My Valentine? 💖</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', Arial, sans-serif;
-  background: linear-gradient(135deg, #ffe6ee, #fff0f5);
-  overflow-x: hidden;
-}
+  * {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
 
-/* Floating hearts background */
-.heart {
-  position: fixed;
-  font-size: 18px;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.6;
-}
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, #ffd6e8, #ffeef6);
+    overflow: hidden;
+  }
 
-@keyframes floatUp {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
-}
+  section {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    animation: fadeSlide 1s ease;
+  }
 
-.section {
-  min-height: 100vh;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-  text-align: center;
-}
+  section.active {
+    display: flex;
+  }
 
-.section.active {
-  display: flex;
-}
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-.card {
-  background: rgba(255,255,255,0.9);
-  padding: 30px;
-  border-radius: 25px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-  max-width: 500px;
-  width: 100%;
-}
+  h1, h2, p {
+    text-align: center;
+    color: #b30059;
+  }
 
-h1, h2 {
-  color: #ff4d6d;
-}
+  button {
+    margin-top: 30px;
+    padding: 12px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #ff5fa2;
+    color: white;
+    transition: transform 0.2s;
+  }
 
-p {
-  color: #444;
-}
+  button:hover {
+    transform: scale(1.1);
+  }
 
-button {
-  margin-top: 25px;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 30px;
-  background: #ff4d6d;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+  /* Envelope */
+  .envelope {
+    width: 200px;
+    height: 140px;
+    background: #ff8fbf;
+    position: relative;
+    border-radius: 10px;
+    animation: float 3s ease-in-out infinite;
+  }
 
-button:hover {
-  transform: scale(1.05);
-}
+  .envelope::before {
+    content: '';
+    position: absolute;
+    top: -70px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid #ffb3d9;
+  }
 
-button.no {
-  background: #ff9aa2;
-  position: relative;
-}
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
 
-img {
-  width: 100%;
-  border-radius: 15px;
-  margin-top: 15px;
-}
+  /* Typing */
+  .typing {
+    border-right: 2px solid #b30059;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: blink 0.8s infinite;
+  }
 
-/* Envelope */
-.envelope {
-  width: 220px;
-  height: 130px;
-  background: #ff4d6d;
-  position: relative;
-  border-radius: 12px;
-  margin: 0 auto 20px;
-  animation: float 2s infinite ease-in-out;
-}
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
 
-.envelope::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #ff6f91;
-  clip-path: polygon(0 0, 50% 50%, 100% 0);
-}
+  /* Images */
+  .gallery {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
+  .gallery img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
 
-/* Confetti */
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
-}
+  /* Valentine buttons */
+  .btns {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  #noBtn {
+    background: #ff9fcf;
+    position: absolute;
+  }
+
+  /* Celebration */
+  .heart {
+    position: fixed;
+    font-size: 24px;
+    animation: rise 4s linear forwards;
+  }
+
+  @keyframes rise {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+  }
 </style>
 </head>
 
 <body>
 
 <!-- SECTION 1 -->
-<div class="section active">
-  <div class="card">
-    <div class="envelope"></div>
-    <h1>Happy Valentine's Day 💌</h1>
-    <p>I made something special just for you</p>
-    <button onclick="nextSection()">Open 💖</button>
-  </div>
-</div>
+<section class="active">
+  <div class="envelope"></div>
+  <h1 class="typing" id="type1"></h1>
+  <button onclick="nextSection()">Open 💌</button>
+</section>
 
 <!-- SECTION 2 -->
-<div class="section">
-  <div class="card">
-    <h2>My Love Message 💕</h2>
-    <p>
-      <!-- ✏️ EDIT THIS -->
-      Every smile, every moment, every memory with you
-      means more than words can say.
-      I’m grateful for you—always.
-    </p>
-    <button onclick="nextSection()">Next ➡️</button>
-  </div>
-</div>
+<section>
+  <h2 class="typing" id="type2"></h2>
+  <button onclick="nextSection()">Next 💖</button>
+</section>
 
 <!-- SECTION 3 -->
-<div class="section">
-  <div class="card">
-    <h2>Our Memories 📸</h2>
-
-    <!-- ✏️ REPLACE WITH YOUR IMAGES -->
-    <img src="https://via.placeholder.com/400x250?text=Photo+1">
-    <img src="https://via.placeholder.com/400x250?text=Photo+2">
-    <img src="https://via.placeholder.com/400x250?text=Photo+3">
-
-    <button onclick="nextSection()">Next ➡️</button>
+<section>
+  <h2>Our Memories 📸</h2>
+  <div class="gallery">
+    <!-- REPLACE src WITH YOUR IMAGES -->
+    <img src="https://via.placeholder.com/300">
+    <img src="https://via.placeholder.com/300">
+    <img src="https://via.placeholder.com/300">
   </div>
-</div>
+  <button onclick="nextSection()">Next 💕</button>
+</section>
 
 <!-- SECTION 4 -->
-<div class="section">
-  <div class="card">
-    <h2 id="question">Will you be my Valentine? 💖</h2>
-
-    <button onclick="yesAnswer()">Yes 💘</button>
-    <button class="no" id="noBtn" onclick="noAnswer()">No 😢</button>
-
-    <p id="result"></p>
+<section>
+  <h2 id="question">Will you be my Valentine? 💘</h2>
+  <div class="btns">
+    <button onclick="yes()">YES 💖</button>
+    <button id="noBtn" onclick="no()">NO 😢</button>
   </div>
-</div>
+</section>
 
 <script>
-/* Section navigation */
-let current = 0;
-const sections = document.querySelectorAll(".section");
+  const sections = document.querySelectorAll("section");
+  let current = 0;
 
-function nextSection() {
-  sections[current].classList.remove("active");
-  current++;
-  sections[current].classList.add("active");
-}
-
-/* Floating hearts */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "💗";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 10 + 14 + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}, 400);
-
-/* Valentine logic */
-const noTexts = [
-  "Are you sure? 🥺",
-  "Think again 💔",
-  "Pleaseee 💕",
-  "Don’t break my heart 😢",
-  "Last chance 😳",
-  "Will you be my Valentine? 💖"
-];
-let noIndex = 0;
-
-function noAnswer() {
-  const noBtn = document.getElementById("noBtn");
-
-  noBtn.innerText = noTexts[noIndex];
-  noIndex = (noIndex + 1) % noTexts.length;
-
-  // Escape movement
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random() * 70 + "%";
-  noBtn.style.top = Math.random() * 70 + "%";
-}
-
-function yesAnswer() {
-  document.getElementById("question").innerText =
-    "Yay! 💖 You’re my Valentine!";
-  document.getElementById("result").innerText =
-    "I can’t wait to celebrate with you 💕";
-
-  for (let i = 0; i < 100; i++) {
-    const confetti = document.createElement("div");
-    confetti.innerHTML = "🎉";
-    confetti.style.position = "fixed";
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.top = "-20px";
-    confetti.style.fontSize = "22px";
-    confetti.style.animation =
-      "fall " + (Math.random() * 3 + 2) + "s linear";
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 5000);
+  function nextSection() {
+    sections[current].classList.remove("active");
+    current++;
+    sections[current].classList.add("active");
   }
-}
+
+  /* Typing Effect */
+  function typeText(id, text, speed = 70) {
+    let i = 0;
+    const el = document.getElementById(id);
+    const interval = setInterval(() => {
+      el.textContent += text[i];
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, speed);
+  }
+
+  typeText("type1", "I have something special for you...");
+  typeText("type2", "Every moment with you feels like a beautiful dream 💕");
+
+  /* NO button behavior */
+  const noTexts = [
+    "Are you sure? 🥺",
+    "Really sure? 💔",
+    "Think again 😢",
+    "What if I ask nicely? 💕",
+    "Please say yes 🥹"
+  ];
+  let noCount = 0;
+
+  function no() {
+    const btn = document.getElementById("noBtn");
+    btn.textContent = noTexts[noCount % noTexts.length];
+    noCount++;
+    btn.style.left = Math.random() * 200 - 100 + "px";
+    btn.style.top = Math.random() * 100 - 50 + "px";
+  }
+
+  /* YES celebration */
+  function yes() {
+    document.getElementById("question").textContent =
+      "YAY! 💖 Happy Valentine's Day!";
+
+    for (let i = 0; i < 60; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["💖","✨","🎆","💕"][Math.floor(Math.random()*4)];
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+  }
 </script>
 
 </body>
