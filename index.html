@@ -224,19 +224,34 @@
   }
 
   /* YES celebration */
-  function yes() {
-    document.getElementById("question").textContent =
-      "YAY! 💖 Happy Valentine's Day!";
+    function yes() {
+  const q = document.getElementById("question");
+  q.textContent = "YAY! 💖 Happy Valentine’s Day! 💕";
+  q.style.fontSize = "28px";
 
-    for (let i = 0; i < 60; i++) {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = ["💖","✨","🎆","💕"][Math.floor(Math.random()*4)];
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
+  // Soft romantic background glow
+  document.body.style.background =
+    "radial-gradient(circle at top, #ffd1e8, #ffb3d9, #ffeef6)";
+
+  // Romantic celebration loop
+  let count = 0;
+  const celebration = setInterval(() => {
+    for (let i = 0; i < 8; i++) {
+      const el = document.createElement("div");
+      el.className = "heart";
+      el.textContent = ["💖","💕","✨","🎆","💫"][Math.floor(Math.random() * 5)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = Math.random() * 20 + 20 + "px";
+      document.body.appendChild(el);
+
+      setTimeout(() => el.remove(), 5000);
     }
-  }
+
+    count++;
+    if (count > 15) clearInterval(celebration);
+  }, 400);
+}
+
 </script>
 
 </body>
