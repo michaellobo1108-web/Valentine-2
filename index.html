@@ -142,7 +142,27 @@
     from { transform: translateY(100vh); opacity: 1; }
     to { transform: translateY(-10vh); opacity: 0; }
   }
-</style>
+</style> 
+
+ heart {
+  position: fixed;
+  bottom: -30px;
+  animation: rise 5s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+  
+ 
 </head>
 
 <body>
