@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Valentine 💖</title>
+<title>Be My Valentine 💖</title>
 
 <style>
 * {
@@ -17,36 +17,37 @@ body {
   overflow: hidden;
 }
 
+/* PRESENTATION SECTIONS */
 section {
-  width: 100vw;
-  height: 100vh;
-  display: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  animation: transitionIn 1s ease;
+  padding: 25px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
 }
 
 section.active {
-  display: flex;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-@keyframes transitionIn {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-h1, h2, p {
-  text-align: center;
+/* TEXT */
+h1, h2 {
   color: #b3005e;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Buttons */
+/* BUTTONS */
 button {
   padding: 12px 30px;
-  border: none;
   border-radius: 30px;
+  border: none;
   background: #ff5fa2;
   color: white;
   font-size: 16px;
@@ -59,7 +60,7 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* Envelope */
+/* ENVELOPE */
 .envelope {
   width: 200px;
   height: 130px;
@@ -83,14 +84,14 @@ button:hover {
   50% { transform: translateY(-20px); }
 }
 
-/* Typing */
+/* TYPING */
 .typing {
   border-right: 2px solid #b3005e;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* Gallery */
+/* GALLERY */
 .gallery {
   display: flex;
   gap: 15px;
@@ -102,16 +103,15 @@ button:hover {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 18px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* Valentine Buttons */
-.btn-container {
+/* VALENTINE BUTTONS */
+.btn-box {
   position: relative;
-  width: 300px;
+  width: 320px;
   height: 120px;
-  margin-top: 20px;
 }
 
 #yesBtn {
@@ -125,17 +125,25 @@ button:hover {
   background: #ff9fcf;
 }
 
-/* Celebration */
-.celebrate {
+/* FIREWORKS */
+.firework {
   position: fixed;
-  bottom: -30px;
-  animation: rise 5s linear forwards;
-  pointer-events: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, #ff69b4);
+  animation: explode 1.5s ease-out forwards;
 }
 
-@keyframes rise {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-120vh); opacity: 0; }
+@keyframes explode {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(25);
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -159,7 +167,6 @@ button:hover {
 <section>
   <h2>Our Memories 📸</h2>
   <div class="gallery">
-    <!-- Replace image links -->
     <img src="https://via.placeholder.com/300">
     <img src="https://via.placeholder.com/300">
     <img src="https://via.placeholder.com/300">
@@ -170,24 +177,24 @@ button:hover {
 <!-- SECTION 4 -->
 <section>
   <h2 id="question">Will you be my Valentine? 💘</h2>
-
-  <div class="btn-container">
+  <div class="btn-box">
     <button id="yesBtn" onclick="yes()">YES 💖</button>
     <button id="noBtn" onclick="no()">NO 😢</button>
   </div>
 </section>
 
 <script>
+/* PRESENTATION LOGIC */
 const sections = document.querySelectorAll("section");
-let index = 0;
+let page = 0;
 
 function next() {
-  sections[index].classList.remove("active");
-  index++;
-  sections[index].classList.add("active");
+  sections[page].classList.remove("active");
+  page++;
+  sections[page].classList.add("active");
 }
 
-/* Typing effect */
+/* TYPING */
 function type(id, text, speed = 60) {
   let i = 0;
   const el = document.getElementById(id);
@@ -199,48 +206,46 @@ function type(id, text, speed = 60) {
 }
 
 type("t1", "I have something special for you...");
-type("t2", "Every moment with you feels like a beautiful love story 💕");
+type("t2", "Every moment with you feels like a beautiful dream 💕");
 
-/* NO button */
+/* NO BUTTON */
 const noTexts = [
-  "Are you sure? 🥺",
-  "Really? 💔",
-  "Think again 😢",
-  "Pleaseee 🥹",
-  "Say yes already 💕"
+  "Are you sure?",
+  "Really sure?",
+  "Think again",
+  "Please reconsider",
+  "Say yes already"
 ];
-let noIndex = 0;
+let noClick = 0;
 
 function no() {
   const btn = document.getElementById("noBtn");
-  btn.textContent = noTexts[noIndex % noTexts.length];
-  noIndex++;
+  btn.textContent = noTexts[noClick % noTexts.length];
+  noClick++;
   btn.style.right = Math.random() * 150 + "px";
   btn.style.top = Math.random() * 50 + "px";
 }
 
-/* YES celebration */
+/* FIREWORK CELEBRATION */
 function yes() {
   document.getElementById("question").textContent =
-    "YAY! 💖 Happy Valentine’s Day! 💕";
+    "YAY! 💖 Happy Valentine’s Day!";
 
   document.body.style.background =
-    "radial-gradient(circle, #ffd1e8, #ffb3d9, #fff0f6)";
+    "radial-gradient(circle at top, #ffe0f0, #ffb3d9, #fff0f6)";
 
-  let count = 0;
-  const loop = setInterval(() => {
-    for (let i = 0; i < 6; i++) {
-      const el = document.createElement("div");
-      el.className = "celebrate";
-      el.textContent = ["💖","💕","✨","🎆","💫"][Math.floor(Math.random()*5)];
-      el.style.left = Math.random() * 100 + "vw";
-      el.style.fontSize = Math.random() * 20 + 20 + "px";
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 5000);
-    }
-    count++;
-    if (count > 15) clearInterval(loop);
-  }, 400);
+  let bursts = 0;
+  const fireworks = setInterval(() => {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * 100 + "vw";
+    fw.style.top = Math.random() * 60 + "vh";
+    document.body.appendChild(fw);
+
+    setTimeout(() => fw.remove(), 1500);
+    bursts++;
+    if (bursts > 18) clearInterval(fireworks);
+  }, 300);
 }
 </script>
 
