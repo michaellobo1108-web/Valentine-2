@@ -1,150 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Will You Be My Valentine? 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine 💖</title>
 
 <style>
-  * {
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-  body {
-    margin: 0;
-    background: linear-gradient(180deg, #ffd6e8, #ffeef6);
-    overflow: hidden;
-  }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #ffd6e8, #fff0f6);
+  overflow: hidden;
+}
 
-  section {
-    width: 100vw;
-    height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    animation: fadeSlide 1s ease;
-  }
+section {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: transitionIn 1s ease;
+}
 
-  section.active {
-    display: flex;
-  }
+section.active {
+  display: flex;
+}
 
-  @keyframes fadeSlide {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+@keyframes transitionIn {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  h1, h2, p {
-    text-align: center;
-    color: #b30059;
-  }
+h1, h2, p {
+  text-align: center;
+  color: #b3005e;
+}
 
-  button {
-    margin-top: 30px;
-    padding: 12px 28px;
-    font-size: 16px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    background: #ff5fa2;
-    color: white;
-    transition: transform 0.2s;
-  }
+/* Buttons */
+button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  background: #ff5fa2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: transform 0.2s;
+}
 
-  button:hover {
-    transform: scale(1.1);
-  }
+button:hover {
+  transform: scale(1.1);
+}
 
-  /* Envelope */
-  .envelope {
-    width: 200px;
-    height: 140px;
-    background: #ff8fbf;
-    position: relative;
-    border-radius: 10px;
-    animation: float 3s ease-in-out infinite;
-  }
+/* Envelope */
+.envelope {
+  width: 200px;
+  height: 130px;
+  background: #ff8fbf;
+  border-radius: 12px;
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
 
-  .envelope::before {
-    content: '';
-    position: absolute;
-    top: -70px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-    border-bottom: 70px solid #ffb3d9;
-  }
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: -65px;
+  left: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 65px solid #ffb3d9;
+}
 
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
+@keyframes float {
+  50% { transform: translateY(-20px); }
+}
 
-  /* Typing */
-  .typing {
-    border-right: 2px solid #b30059;
-    white-space: nowrap;
-    overflow: hidden;
-    animation: blink 0.8s infinite;
-  }
+/* Typing */
+.typing {
+  border-right: 2px solid #b3005e;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-  @keyframes blink {
-    50% { border-color: transparent; }
-  }
+/* Gallery */
+.gallery {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  /* Images */
-  .gallery {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+.gallery img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
 
-  .gallery img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  }
+/* Valentine Buttons */
+.btn-container {
+  position: relative;
+  width: 300px;
+  height: 120px;
+  margin-top: 20px;
+}
 
-  /* Valentine buttons */
-  .btns {
-    display: flex;
-    gap: 20px;
-    position: relative;
-  }
+#yesBtn {
+  position: absolute;
+  left: 0;
+}
 
-  #noBtn {
-    background: #ff9fcf;
-    position: absolute;
-  }
+#noBtn {
+  position: absolute;
+  right: 0;
+  background: #ff9fcf;
+}
 
-  /* Celebration */
-  .heart {
-    position: fixed;
-    font-size: 24px;
-    animation: rise 4s linear forwards;
-  }
-
-  @keyframes rise {
-    from { transform: translateY(100vh); opacity: 1; }
-    to { transform: translateY(-10vh); opacity: 0; }
-  }
-</style> 
-
- heart {
+/* Celebration */
+.celebrate {
   position: fixed;
   bottom: -30px;
   animation: rise 5s linear forwards;
@@ -152,17 +134,10 @@
 }
 
 @keyframes rise {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-110vh) scale(1.5);
-    opacity: 0;
-  }
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
 }
-  
- 
+</style>
 </head>
 
 <body>
@@ -170,108 +145,103 @@
 <!-- SECTION 1 -->
 <section class="active">
   <div class="envelope"></div>
-  <h1 class="typing" id="type1"></h1>
-  <button onclick="nextSection()">Open 💌</button>
+  <h1 class="typing" id="t1"></h1>
+  <button onclick="next()">Open 💌</button>
 </section>
 
 <!-- SECTION 2 -->
 <section>
-  <h2 class="typing" id="type2"></h2>
-  <button onclick="nextSection()">Next 💖</button>
+  <h2 class="typing" id="t2"></h2>
+  <button onclick="next()">Next 💕</button>
 </section>
 
 <!-- SECTION 3 -->
 <section>
   <h2>Our Memories 📸</h2>
   <div class="gallery">
-    <!-- REPLACE src WITH YOUR IMAGES -->
+    <!-- Replace image links -->
     <img src="https://via.placeholder.com/300">
     <img src="https://via.placeholder.com/300">
     <img src="https://via.placeholder.com/300">
   </div>
-  <button onclick="nextSection()">Next 💕</button>
+  <button onclick="next()">Next 💖</button>
 </section>
 
 <!-- SECTION 4 -->
 <section>
   <h2 id="question">Will you be my Valentine? 💘</h2>
-  <div class="btns">
-    <button onclick="yes()">YES 💖</button>
+
+  <div class="btn-container">
+    <button id="yesBtn" onclick="yes()">YES 💖</button>
     <button id="noBtn" onclick="no()">NO 😢</button>
   </div>
 </section>
 
 <script>
-  const sections = document.querySelectorAll("section");
-  let current = 0;
+const sections = document.querySelectorAll("section");
+let index = 0;
 
-  function nextSection() {
-    sections[current].classList.remove("active");
-    current++;
-    sections[current].classList.add("active");
-  }
+function next() {
+  sections[index].classList.remove("active");
+  index++;
+  sections[index].classList.add("active");
+}
 
-  /* Typing Effect */
-  function typeText(id, text, speed = 70) {
-    let i = 0;
-    const el = document.getElementById(id);
-    const interval = setInterval(() => {
-      el.textContent += text[i];
-      i++;
-      if (i >= text.length) clearInterval(interval);
-    }, speed);
-  }
+/* Typing effect */
+function type(id, text, speed = 60) {
+  let i = 0;
+  const el = document.getElementById(id);
+  const interval = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, speed);
+}
 
-  typeText("type1", "I have something special for you...");
-  typeText("type2", "Every moment with you feels like a beautiful dream 💕");
+type("t1", "I have something special for you...");
+type("t2", "Every moment with you feels like a beautiful love story 💕");
 
-  /* NO button behavior */
-  const noTexts = [
-    "Are you sure? 🥺",
-    "Really sure? 💔",
-    "Think again 😢",
-    "What if I ask nicely? 💕",
-    "Please say yes 🥹"
-  ];
-  let noCount = 0;
+/* NO button */
+const noTexts = [
+  "Are you sure? 🥺",
+  "Really? 💔",
+  "Think again 😢",
+  "Pleaseee 🥹",
+  "Say yes already 💕"
+];
+let noIndex = 0;
 
-  function no() {
-    const btn = document.getElementById("noBtn");
-    btn.textContent = noTexts[noCount % noTexts.length];
-    noCount++;
-    btn.style.left = Math.random() * 200 - 100 + "px";
-    btn.style.top = Math.random() * 100 - 50 + "px";
-  }
+function no() {
+  const btn = document.getElementById("noBtn");
+  btn.textContent = noTexts[noIndex % noTexts.length];
+  noIndex++;
+  btn.style.right = Math.random() * 150 + "px";
+  btn.style.top = Math.random() * 50 + "px";
+}
 
-  /* YES celebration */
-    function yes() {
-  const q = document.getElementById("question");
-  q.textContent = "YAY! 💖 Happy Valentine’s Day! 💕";
-  q.style.fontSize = "28px";
+/* YES celebration */
+function yes() {
+  document.getElementById("question").textContent =
+    "YAY! 💖 Happy Valentine’s Day! 💕";
 
-  // Soft romantic background glow
   document.body.style.background =
-    "radial-gradient(circle at top, #ffd1e8, #ffb3d9, #ffeef6)";
+    "radial-gradient(circle, #ffd1e8, #ffb3d9, #fff0f6)";
 
-  // Romantic celebration loop
   let count = 0;
-  const celebration = setInterval(() => {
-    for (let i = 0; i < 8; i++) {
+  const loop = setInterval(() => {
+    for (let i = 0; i < 6; i++) {
       const el = document.createElement("div");
-      el.className = "heart";
-      el.textContent = ["💖","💕","✨","🎆","💫"][Math.floor(Math.random() * 5)];
+      el.className = "celebrate";
+      el.textContent = ["💖","💕","✨","🎆","💫"][Math.floor(Math.random()*5)];
       el.style.left = Math.random() * 100 + "vw";
       el.style.fontSize = Math.random() * 20 + 20 + "px";
       document.body.appendChild(el);
-
       setTimeout(() => el.remove(), 5000);
     }
-
     count++;
-    if (count > 15) clearInterval(celebration);
+    if (count > 15) clearInterval(loop);
   }, 400);
 }
-
 </script>
 
 </body>
