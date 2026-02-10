@@ -13,22 +13,22 @@
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #ffd6e8, #fff0f6);
+  background: linear-gradient(180deg, #ffd6e8 0%, #ffeaf3 50%, #fff5fa 100%);
   overflow: hidden;
 }
 
-/* PRESENTATION SECTIONS */
+/* PRESENTATION SLIDES */
 section {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 25px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
 }
 
 section.active {
@@ -53,7 +53,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   margin-top: 30px;
-  transition: transform 0.2s;
+  transition: transform 0.25s ease;
 }
 
 button:hover {
@@ -81,10 +81,10 @@ button:hover {
 }
 
 @keyframes float {
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(-18px); }
 }
 
-/* TYPING */
+/* TYPING EFFECT */
 .typing {
   border-right: 2px solid #b3005e;
   white-space: nowrap;
@@ -94,7 +94,7 @@ button:hover {
 /* GALLERY */
 .gallery {
   display: flex;
-  gap: 15px;
+  gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -104,7 +104,7 @@ button:hover {
   height: 150px;
   object-fit: cover;
   border-radius: 18px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.15);
 }
 
 /* VALENTINE BUTTONS */
@@ -125,45 +125,34 @@ button:hover {
   background: #ff9fcf;
 }
 
-/* FIREWORKS */
-.firework {
+/* FIREWORK PARTICLES */
+.spark {
   position: fixed;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: radial-gradient(circle, #fff, #ff69b4);
-  animation: explode 1.5s ease-out forwards;
-}
-
-@keyframes explode {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(25);
-    opacity: 0;
-  }
+  pointer-events: none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SECTION 1 -->
-<section class="active">
+<!-- SLIDE 1 -->
+<section class="active" data-text="I have something special for you...">
   <div class="envelope"></div>
-  <h1 class="typing" id="t1"></h1>
+  <h1 class="typing"></h1>
   <button onclick="next()">Open 💌</button>
 </section>
 
-<!-- SECTION 2 -->
-<section>
-  <h2 class="typing" id="t2"></h2>
-  <button onclick="next()">Next 💕</button>
+<!-- SLIDE 2 -->
+<section data-text="Every moment with you feels like a beautiful love story 💕">
+  <h2 class="typing"></h2>
+  <button onclick="next()">Next 💖</button>
 </section>
 
-<!-- SECTION 3 -->
+<!-- SLIDE 3 -->
 <section>
   <h2>Our Memories 📸</h2>
   <div class="gallery">
@@ -171,10 +160,10 @@ button:hover {
     <img src="https://via.placeholder.com/300">
     <img src="https://via.placeholder.com/300">
   </div>
-  <button onclick="next()">Next 💖</button>
+  <button onclick="next()">Next 💕</button>
 </section>
 
-<!-- SECTION 4 -->
+<!-- SLIDE 4 -->
 <section>
   <h2 id="question">Will you be my Valentine? 💘</h2>
   <div class="btn-box">
@@ -184,29 +173,34 @@ button:hover {
 </section>
 
 <script>
-/* PRESENTATION LOGIC */
 const sections = document.querySelectorAll("section");
 let page = 0;
 
+/* PRESENTATION TRANSITION + TYPING */
 function next() {
   sections[page].classList.remove("active");
   page++;
   sections[page].classList.add("active");
+  startTyping(sections[page]);
 }
 
-/* TYPING */
-function type(id, text, speed = 60) {
+/* TYPING FUNCTION */
+function startTyping(section) {
+  const text = section.dataset.text;
+  const el = section.querySelector(".typing");
+  if (!text || !el) return;
+
+  el.textContent = "";
   let i = 0;
-  const el = document.getElementById(id);
   const interval = setInterval(() => {
     el.textContent += text[i];
     i++;
     if (i >= text.length) clearInterval(interval);
-  }, speed);
+  }, 60);
 }
 
-type("t1", "I have something special for you...");
-type("t2", "Every moment with you feels like a beautiful dream 💕");
+/* Start typing on first load */
+startTyping(sections[0]);
 
 /* NO BUTTON */
 const noTexts = [
@@ -216,36 +210,55 @@ const noTexts = [
   "Please reconsider",
   "Say yes already"
 ];
-let noClick = 0;
+let noCount = 0;
 
 function no() {
   const btn = document.getElementById("noBtn");
-  btn.textContent = noTexts[noClick % noTexts.length];
-  noClick++;
-  btn.style.right = Math.random() * 150 + "px";
-  btn.style.top = Math.random() * 50 + "px";
+  btn.textContent = noTexts[noCount % noTexts.length];
+  noCount++;
+  btn.style.right = Math.random() * 140 + "px";
+  btn.style.top = Math.random() * 60 + "px";
 }
 
-/* FIREWORK CELEBRATION */
+/* REAL FIREWORKS */
 function yes() {
   document.getElementById("question").textContent =
     "YAY! 💖 Happy Valentine’s Day!";
 
-  document.body.style.background =
-    "radial-gradient(circle at top, #ffe0f0, #ffb3d9, #fff0f6)";
-
   let bursts = 0;
-  const fireworks = setInterval(() => {
-    const fw = document.createElement("div");
-    fw.className = "firework";
-    fw.style.left = Math.random() * 100 + "vw";
-    fw.style.top = Math.random() * 60 + "vh";
-    document.body.appendChild(fw);
+  const fireworkLoop = setInterval(() => {
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight * 0.5;
 
-    setTimeout(() => fw.remove(), 1500);
+    for (let i = 0; i < 24; i++) {
+      const spark = document.createElement("div");
+      spark.className = "spark";
+      spark.style.left = x + "px";
+      spark.style.top = y + "px";
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 120 + 40;
+
+      document.body.appendChild(spark);
+
+      spark.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        {
+          transform: `translate(${Math.cos(angle) * distance}px,
+                      ${Math.sin(angle) * distance}px)`,
+          opacity: 0
+        }
+      ], {
+        duration: 1200,
+        easing: "ease-out"
+      });
+
+      setTimeout(() => spark.remove(), 1200);
+    }
+
     bursts++;
-    if (bursts > 18) clearInterval(fireworks);
-  }, 300);
+    if (bursts > 14) clearInterval(fireworkLoop);
+  }, 350);
 }
 </script>
 
