@@ -14,21 +14,20 @@
 body {
   margin: 0;
   background: linear-gradient(180deg, #ffd6e8 0%, #ffeaf3 50%, #fff5fa 100%);
-  overflow: hidden;
 }
 
-/* PRESENTATION SLIDES */
+/* SLIDES */
 section {
   position: absolute;
   inset: 0;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 25px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.2s ease;
+  overflow-y: auto;
 }
 
 section.active {
@@ -36,11 +35,17 @@ section.active {
   pointer-events: auto;
 }
 
-/* TEXT */
 h1, h2 {
   color: #b3005e;
   text-align: center;
-  margin-bottom: 20px;
+}
+
+p {
+  color: #6a0036;
+  max-width: 700px;
+  line-height: 1.7;
+  font-size: 16px;
+  text-align: justify;
 }
 
 /* BUTTONS */
@@ -52,7 +57,7 @@ button {
   color: white;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 30px;
+  margin: 30px 0;
 }
 
 button:hover {
@@ -66,6 +71,7 @@ button:hover {
   background: #ff8fbf;
   border-radius: 12px;
   position: relative;
+  margin-top: 100px;
   animation: float 3s ease-in-out infinite;
 }
 
@@ -80,20 +86,13 @@ button:hover {
 }
 
 @keyframes float {
-  50% { transform: translateY(-18px); }
-}
-
-/* TYPING */
-.typing {
-  border-right: 2px solid #b3005e;
-  white-space: nowrap;
-  overflow: hidden;
+  50% { transform: translateY(-15px); }
 }
 
 /* GALLERY */
 .gallery {
   display: flex;
-  gap: 16px;
+  gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -103,10 +102,10 @@ button:hover {
   height: 150px;
   object-fit: cover;
   border-radius: 18px;
-  box-shadow: 0 12px 22px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* BUTTON LAYOUT */
+/* BUTTON BOX */
 .btn-box {
   position: relative;
   width: 320px;
@@ -116,7 +115,7 @@ button:hover {
 #yesBtn { position: absolute; left: 0; }
 #noBtn  { position: absolute; right: 0; background: #ff9fcf; }
 
-/* CANVAS FIREWORKS */
+/* FIREWORK CANVAS */
 #fireworks {
   position: fixed;
   inset: 0;
@@ -130,46 +129,45 @@ button:hover {
 <canvas id="fireworks"></canvas>
 
 <!-- SLIDE 1 -->
-<section class="active" data-text="I have something special for you...">
+<section class="active">
   <div class="envelope"></div>
-  <h1 class="typing"></h1>
-  <button onclick="next()">Open 💌</button>
+  <h1>I have something special for you... 💌</h1>
+  <button onclick="next()">Open</button>
 </section>
 
-<!-- SLIDE 2 -->
-<section data-text="‎
-‎Langga
-‎
-‎Happy Valentine’s Day.
-‎
-‎Before anything else, I just want to say thank you — for staying, for choosing me, for growing with me.
-‎
-‎We may not always have the grandest dates or the most expensive gifts. Sometimes it’s just simple meals, shared jeepney rides, tight weekly budgets, and quick moments in between responsibilities. But somehow, with you, even the simplest things feel special. Even ordinary days feel like something worth remembering.
-‎
-‎You’ve seen me during my busy days, my stressed moments, my overthinking nights. You’ve seen my ambitions, my worries, my dreams. And through all of that, you never made me feel like I was too much or not enough. You stayed patient. You stayed kind.
-‎
-‎I know we’re still building ourselves — as students, as individuals, as people chasing bigger futures. We’re not yet where we want to be. But I promise you this: I am working not just for my dreams, but for a future where we won’t have to count every peso before going out, where I can give you more than just promises — where I can give you comfort, stability, and a love that feels secure.
-‎
-‎But even now, even in this season of becoming… I choose you.
-‎
-‎I choose you when things are easy.
-‎I choose you when things are uncertain.
-‎I choose you when life feels overwhelming.
-‎I choose you when all we have is hope and each other.
-‎
-‎You are not just my girlfriend. You are my peace in the middle of chaos. You are the person I want to tell my small wins to. You are the one I think about when I imagine the future.
-‎
-‎Thank you for loving me not because I am perfect, but because I am trying.
-‎
-‎And as long as you’ll have me, I will keep choosing you — not just today, not just on Valentine’s Day — but every day.
-‎
-‎I love you more than words can fully explain.
-‎
-‎Forever yours,
-‎Michael ❤️
-‎ ">
-  <h2 class="typing"></h2>
-  <button onclick="next()">Next 💖</button>
+<!-- SLIDE 2 (YOUR LETTER) -->
+<section>
+  <h2>Langga 💖</h2>
+
+  <p>
+  Happy Valentine’s Day.<br><br>
+
+  Before anything else, I just want to say thank you — for staying, for choosing me, for growing with me.<br><br>
+
+  We may not always have the grandest dates or the most expensive gifts. Sometimes it’s just simple meals, shared jeepney rides, tight weekly budgets, and quick moments in between responsibilities. But somehow, with you, even the simplest things feel special. Even ordinary days feel like something worth remembering.<br><br>
+
+  You’ve seen me during my busy days, my stressed moments, my overthinking nights. You’ve seen my ambitions, my worries, my dreams. And through all of that, you never made me feel like I was too much or not enough. You stayed patient. You stayed kind.<br><br>
+
+  I know we’re still building ourselves — as students, as individuals, as people chasing bigger futures. We’re not yet where we want to be. But I promise you this: I am working not just for my dreams, but for a future where we won’t have to count every peso before going out, where I can give you more than just promises — where I can give you comfort, stability, and a love that feels secure.<br><br>
+
+  But even now, even in this season of becoming… I choose you.<br>
+  I choose you when things are easy.<br>
+  I choose you when things are uncertain.<br>
+  I choose you when life feels overwhelming.<br>
+  I choose you when all we have is hope and each other.<br><br>
+
+  You are not just my girlfriend. You are my peace in the middle of chaos. You are the person I want to tell my small wins to. You are the one I think about when I imagine the future.<br><br>
+
+  Thank you for loving me not because I am perfect, but because I am trying.<br><br>
+
+  And as long as you’ll have me, I will keep choosing you — not just today, not just on Valentine’s Day — but every day.<br><br>
+
+  I love you more than words can fully explain.<br><br>
+
+  <strong>Forever yours,<br>Michael</strong>
+  </p>
+
+  <button onclick="next()">Next 💕</button>
 </section>
 
 <!-- SLIDE 3 -->
@@ -180,7 +178,7 @@ button:hover {
     <img src="https://via.placeholder.com/300">
     <img src="https://via.placeholder.com/300">
   </div>
-  <button onclick="next()">Next 💕</button>
+  <button onclick="next()">Next</button>
 </section>
 
 <!-- SLIDE 4 -->
@@ -193,7 +191,6 @@ button:hover {
 </section>
 
 <script>
-/* PRESENTATION */
 const sections = document.querySelectorAll("section");
 let page = 0;
 
@@ -201,33 +198,10 @@ function next() {
   sections[page].classList.remove("active");
   page++;
   sections[page].classList.add("active");
-  startTyping(sections[page]);
 }
-
-/* TYPING */
-function startTyping(section) {
-  const text = section.dataset.text;
-  const el = section.querySelector(".typing");
-  if (!text || !el) return;
-
-  el.textContent = "";
-  let i = 0;
-  const interval = setInterval(() => {
-    el.textContent += text[i];
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  }, 60);
-}
-startTyping(sections[0]);
 
 /* NO BUTTON */
-const noTexts = [
-  "Are you sure?",
-  "Really sure?",
-  "Think again",
-  "Please reconsider",
-  "Say yes already"
-];
+const noTexts = ["Are you sure?", "Really sure?", "Think again", "Please reconsider"];
 let noIndex = 0;
 
 function no() {
@@ -238,16 +212,11 @@ function no() {
   btn.style.top = Math.random() * 60 + "px";
 }
 
-/* 🔥 REAL FIREWORKS (CANVAS) */
+/* REAL FIREWORKS */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
-resize();
-window.addEventListener("resize", resize);
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 let particles = [];
 
@@ -256,49 +225,47 @@ function createFirework() {
   const y = Math.random() * canvas.height * 0.5;
   const colors = ["#ff5fa2", "#ff8fcf", "#ffc1dd", "#ffffff"];
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 50; i++) {
     particles.push({
-      x,
-      y,
-      vx: Math.cos(i) * Math.random() * 4,
-      vy: Math.sin(i) * Math.random() * 4,
-      life: 100,
+      x, y,
+      angle: Math.random() * 2 * Math.PI,
+      speed: Math.random() * 4 + 2,
+      life: 80,
       color: colors[Math.floor(Math.random() * colors.length)]
     });
   }
 }
 
-function updateFireworks() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  particles.forEach((p, i) => {
-    p.x += p.vx;
-    p.y += p.vy;
+  particles.forEach((p,i)=>{
+    p.x += Math.cos(p.angle) * p.speed;
+    p.y += Math.sin(p.angle) * p.speed;
     p.life--;
 
     ctx.fillStyle = p.color;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.arc(p.x,p.y,2,0,Math.PI*2);
     ctx.fill();
 
-    if (p.life <= 0) particles.splice(i, 1);
+    if(p.life<=0) particles.splice(i,1);
   });
 
-  requestAnimationFrame(updateFireworks);
+  requestAnimationFrame(animate);
 }
-updateFireworks();
+animate();
 
-/* YES ACTION */
-function yes() {
+function yes(){
   document.getElementById("question").textContent =
     "YAY! 💖 Happy Valentine’s Day!";
 
   let bursts = 0;
-  const show = setInterval(() => {
+  const show = setInterval(()=>{
     createFirework();
     bursts++;
-    if (bursts > 15) clearInterval(show);
-  }, 400);
+    if(bursts>12) clearInterval(show);
+  },500);
 }
 </script>
 
