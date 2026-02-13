@@ -200,40 +200,63 @@ const sections = document.querySelectorAll("section");
 let page = 0;
 
 function next() {
+  if (page < sections.length - 1) {
+    sections[page].classList.remove("active");
+    page++;
+    sections[page].classList.add("active");
+  }
+}
+
+/* FIX FOR SLIDE 3 BUTTON */
+function nextSlide(num) {
   sections[page].classList.remove("active");
-  page++;
+  page = num - 1;
   sections[page].classList.add("active");
 }
 
 /* NO BUTTON */
-const noTexts = ["Are you sure?", "Really sure?", "Think again", "Please reconsider"];
+const noTexts = [
+  "Are you sure?",
+  "Really sure?",
+  "Think again",
+  "Please reconsider",
+  "Don't break my heart 😭"
+];
+
 let noIndex = 0;
 
 function no() {
   const btn = document.getElementById("noBtn");
   btn.textContent = noTexts[noIndex % noTexts.length];
   noIndex++;
-  btn.style.right = Math.random() * 140 + "px";
+
+  btn.style.right = Math.random() * 120 + "px";
   btn.style.top = Math.random() * 60 + "px";
 }
 
-/* REAL FIREWORKS */
+/* FIREWORK SYSTEM */
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 let particles = [];
 
 function createFirework() {
   const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height * 0.5;
+  const y = Math.random() * canvas.height * 0.6;
   const colors = ["#ff5fa2", "#ff8fcf", "#ffc1dd", "#ffffff"];
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 70; i++) {
     particles.push({
-      x, y,
-      angle: Math.random() * 2 * Math.PI,
+      x,
+      y,
+      angle: Math.random() * Math.PI * 2,
       speed: Math.random() * 4 + 2,
       life: 80,
       color: colors[Math.floor(Math.random() * colors.length)]
@@ -242,49 +265,42 @@ function createFirework() {
 }
 
 function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  particles.forEach((p,i)=>{
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
     p.x += Math.cos(p.angle) * p.speed;
     p.y += Math.sin(p.angle) * p.speed;
     p.life--;
 
     ctx.fillStyle = p.color;
     ctx.beginPath();
-    ctx.arc(p.x,p.y,2,0,Math.PI*2);
+    ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
     ctx.fill();
 
-    if(p.life<=0) particles.splice(i,1);
-  });
+    if (p.life <= 0) {
+      particles.splice(i, 1);
+    }
+  }
 
   requestAnimationFrame(animate);
 }
 animate();
 
-function sayYes() {
-  // Change background to romantic pink gradient
-  document.body.style.background = 
+/* YES BUTTON */
+function yes() {
+  document.body.style.background =
     "linear-gradient(135deg, #ffb6d9, #ff8fc4, #ffc2e2)";
-
   document.body.style.transition = "background 1.5s ease";
 
-  document.getElementById("invitationText").innerHTML =
-    "She said YES! 💖";
-
-  startFireworks();
-      }
-  
   document.getElementById("question").textContent =
     "YAY! 💖 Happy Valentine’s Day!";
 
   let bursts = 0;
-  const show = setInterval(()=>{
+  const interval = setInterval(() => {
     createFirework();
     bursts++;
-    if(bursts>12) clearInterval(show);
-  },500);
+    if (bursts > 15) clearInterval(interval);
+  }, 400);
 }
 </script>
-
-</body>
-</html>
