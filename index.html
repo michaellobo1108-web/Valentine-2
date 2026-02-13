@@ -256,7 +256,19 @@ function animate() {
 }
 animate();
 
-function yes(){
+function sayYes() {
+  // Change background to romantic pink gradient
+  document.body.style.background = 
+    "linear-gradient(135deg, #ffb6d9, #ff8fc4, #ffc2e2)";
+
+  document.body.style.transition = "background 1.5s ease";
+
+  document.getElementById("invitationText").innerHTML =
+    "She said YES! 💖";
+
+  startFireworks();
+      }
+  
   document.getElementById("question").textContent =
     "YAY! 💖 Happy Valentine’s Day!";
 
